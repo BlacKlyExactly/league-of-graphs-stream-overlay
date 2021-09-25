@@ -4,13 +4,11 @@ import { Socket } from "socket.io";
 import routes from "./routes";
 import scrape from "./utils/scrape";
 
-const port = process.env.port || "3000";
+const port = process.env.port || 3000;
 const app = express();
 
 app.use(routes);
 app.use(express.static(path.resolve(__dirname + '/../node_modules/')))
-
-app.set("port", port);
 
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
