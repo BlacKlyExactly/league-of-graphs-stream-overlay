@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "ts-node --project tsconfig.json src/index.ts"
+    "start": "ts-node --project tsconfig.json src/index.ts",
+    "postinstall": "cd node_modules/puppeteer/ && npm install"
   },
   "author": "",
   "license": "ISC",

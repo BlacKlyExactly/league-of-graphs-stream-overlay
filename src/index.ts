@@ -4,7 +4,9 @@ import { Socket } from "socket.io";
 import routes from "./routes";
 import scrape from "./utils/scrape";
 
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
+const host = "0.0.0.0";
+
 const app = express();
 
 app.use(routes);
@@ -17,8 +19,7 @@ app.get("/", ( req, res ) => {
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
-http.listen(port, () => console.info(`Listening on > http://localhost:${port}`));
-
+http.listen(port, host, () => console.info(`Listening on > http://${host}:${port}`));
 interface OverlayData {
     server: string,
     summoner: string,
