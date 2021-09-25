@@ -3,7 +3,12 @@ import puppeteer from "puppeteer";
 const URL = "https://www.leagueofgraphs.com/en/summoner/champions"
 
 const scrape = async ( params: { server: string, summoner: string, champion: string }) => {
-    const browser = await puppeteer.launch({ headless: true, args: [ "--no-sandbox" ] });
+    const browser = await puppeteer.launch({ 
+        args : [
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+        ] 
+    });
 
     try {
         const page = await browser.newPage();
