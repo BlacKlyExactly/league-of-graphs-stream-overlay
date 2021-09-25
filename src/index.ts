@@ -10,6 +10,10 @@ const app = express();
 app.use(routes);
 app.use(express.static(path.resolve(__dirname + '/../node_modules/')))
 
+app.get("/", ( req, res ) => {
+    res.send("Welcome to League of Graphs Overlay api")
+})
+
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
