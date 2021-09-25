@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="300">
+    <title>Lol Overlay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            background: transparent;
+            background-size: cover;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .box{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(196, 196, 196, 0.15);
+            border-radius: 16px;
+            width: 315px;
+            height: 105px;
+            padding: 15px 0 15px 21px;
+            transform: scale(1.2);
+        }
+
+        .champion{
+            width: 67px;
+            height: 67px;
+            border-radius: 5px;
+            object-fit: 300%;
+        }
+
+        .maestry{
+            position: absolute;
+            width: 26px;
+            height: 33px;
+            top: 15%;
+            left: 5%;
+        }
+
+        .stats{
+            width: 100%;
+            display: grid;
+            align-self: flex-start;
+            margin-left: 5px;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+
+        .stat{
+            font-weight: 700;
+            margin: 2px 6px;
+        }
+
+        .property{
+            display: inline;
+            color: #AFAFAF;
+            font-size: 13px;
+        }
+
+        .value{
+            display: inline;
+            font-size: 15px;
+            color: #DBD9D9;
+        }
+
+        .kda{
+            margin-top: auto;
+            font-size: 13px;
+            color: white;
+            font-weight: 600;
+            margin-left: 6px;
+            margin-top: 7px;
+        }
+
+        .kda > p {
+            display: inline;
+        }
+
+        .slash{
+            color: #AFAFAF;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img 
+            src="http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Evelynn.png" 
+            alt="champion" 
+            class="champion"
+        >
+        <img 
+            src="https://lolg-cdn.porofessor.gg/img/masteries/lvl7.png" 
+            alt="maestry" 
+            class="maestry"
+        >
+        <div class="stats">
+            <div class="stat">
+                <p class="property">Rank:</p> 
+                <p class="value rank">-</p>
+            </div>
+            <div class="stat">
+                <p class="property">Games:</p> 
+                <p class="value games">113</p>
+            </div>
+            <div class="stat">
+                <p class="property server">Eune:</p> 
+                <p class="value serverRank">-</p>
+            </div>
+            <div class="stat">
+                <p class="property">WR:</p> 
+                <p class="value winRatio">50.4%</p>
+            </div>
+            <div class="kda">
+                <p class="kills">12.6</p> 
+                <span class="slash">/</span> 
+                <p class="deaths">7.5</p> 
+                <span class="slash">/</span> 
+                <p class="assists">8.4</p>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io-client/dist/socket.io.min.js"></script>
+    <script>
+        const champIcon = document.querySelector(".champion");
+        const maestry = document.querySelector(".maestry");
+        const rank = document.querySelector(".rank");
+        const games = document.querySelector(".games");
+        const server = document.querySelector(".server");
+        const serverRank = document.querySelector(".serverRank");
+        const winRatio = document.querySelector(".winRatio");
+        const kills = document.querySelector(".kills");
+        const deaths = document.querySelector(".deaths");
+        const assists = document.querySelector(".assists");
+
+        const socket = io("http://localhost:3000");
+        const [ 
+            userServer, 
+            summoner, 
+            champion 
+        ] = window.location.pathname.split("/").splice(-3);
+
+        socket.emit("overlayLoad", { server: userServer, summoner, champion });
+ 
+        socket.on("refresh", ( data ) => {
+            champIcon.src = data.championIcon;
+            maestry.src = data.maestryImg;
+
+            rank.innerHTML = data.rank;
+            games.innerHTML = data.games;
+            server.innerHTML = `${userServer.charAt(0).toUpperCase()}${userServer.slice(1)}`;
+            serverRank.innerHTML = data.regionalRank;
+            winRatio.innerHTML = data.winRatio;
+            kills.innerHTML = data.kda.kills;
+            deaths.innerHTML = data.kda.deaths;
+            assists.innerHTML = data.kda.assists;
+        })
+    </script>
+</body>
+</html>
