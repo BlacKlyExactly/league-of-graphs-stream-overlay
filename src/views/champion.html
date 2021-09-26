@@ -101,7 +101,7 @@
 <body>
     <div class="box">
         <img 
-            src="http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Evelynn.png" 
+            src="https://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Evelynn.png" 
             alt="champion" 
             class="champion"
         >
@@ -149,7 +149,8 @@
         const deaths = document.querySelector(".deaths");
         const assists = document.querySelector(".assists");
 
-        const socket = io("http://localhost:3000");
+        const socket = io();
+        
         const [ 
             userServer, 
             summoner, 
