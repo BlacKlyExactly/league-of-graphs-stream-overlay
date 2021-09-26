@@ -150,7 +150,7 @@
         const assists = document.querySelector(".assists");
 
         const socket = io();
-        
+
         const [ 
             userServer, 
             summoner, 
@@ -168,9 +168,9 @@
             server.innerHTML = `${userServer.charAt(0).toUpperCase()}${userServer.slice(1)}`;
             serverRank.innerHTML = data.regionalRank;
             winRatio.innerHTML = data.winRatio;
-            kills.innerHTML = data.kda.kills;
-            deaths.innerHTML = data.kda.deaths;
-            assists.innerHTML = data.kda.assists;
+            kills.innerHTML = data.kda?.kills;
+            deaths.innerHTML = data.kda?.deaths;
+            assists.innerHTML = data.kda?.assists;
         })
     </script>
 </body>
