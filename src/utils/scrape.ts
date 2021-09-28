@@ -4,10 +4,15 @@ const URL = "https://www.leagueofgraphs.com/en/summoner/champions"
 
 const scrape = async ( params: { server: string, summoner: string, champion: string }) => {
     const browser = await puppeteer.launch({ 
-        headless: false,
+        headless: true,
         args : [
             '--no-sandbox',
-            '--disable-setuid-sandbox'
+            '--disable-setuid-sandbox',
+            '--disable-infobars',
+            '--window-position=0,0',
+            '--ignore-certifcate-errors',
+            '--ignore-certifcate-errors-spki-list',
+            '--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
         ] 
     });
 
@@ -18,6 +23,8 @@ const scrape = async ( params: { server: string, summoner: string, champion: str
             timeout: 100000,
             waitUntil: "networkidle2"
         });
+
+        page.on("console", txt => console.log(txt.text()));
     
         const data = await page.evaluate(( champion, server, params )  => {
             //@ts-expect-error
@@ -38,15 +45,17 @@ const scrape = async ( params: { server: string, summoner: string, champion: str
                 .replace(")", "")
                 .replace(`${server.toUpperCase()}:`, "")
                 .replace(',', ".");
-    
-            const games = champ.querySelectorAll(".progressBarTxt")[0]?.innerHTML;
-            const winRatio = champ.querySelectorAll(".progressBarTxt")[1]?.innerHTML;
+            
+            const winRatio = 
+                (parseFloat(champ.querySelectorAll("progressbar")[1]?.getAttribute("data-value") || "0.50") * 100).toFixed(1);
+
+            const games = champ.querySelector("[data-sort-value]")?.getAttribute("data-sort-value");
             const maestryImg = champ.querySelector(".championMasteryLevelIcon")?.getAttribute("src");
             const pentakills = trimContent(champ.children[6].querySelector("a")?.innerHTML);
             const goldPerMinute = trimContent(champ.children[5].querySelector("a")?.innerHTML);
             const minionsPerMinute = trimContent(champ.children[4].querySelector("a")?.innerHTML);
             const championIcon = `http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/${champion}.png`;
-    
+
             const kda = {
                 kills: champ.querySelector(".kills")?.innerHTML,
                 deaths: champ.querySelector(".deaths")?.innerHTML,

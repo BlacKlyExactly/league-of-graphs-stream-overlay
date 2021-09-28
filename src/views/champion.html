@@ -164,10 +164,10 @@
             maestry.src = data.maestryImg;
 
             rank.innerHTML = data.rank;
-            games.innerHTML = data.games;
+            games.innerHTML = data.games || "";
             server.innerHTML = `${userServer.charAt(0).toUpperCase()}${userServer.slice(1)}`;
             serverRank.innerHTML = data.regionalRank;
-            winRatio.innerHTML = data.winRatio;
+            winRatio.innerHTML = `${data.winRatio}%` || "0%";
             kills.innerHTML = data.kda?.kills;
             deaths.innerHTML = data.kda?.deaths;
             assists.innerHTML = data.kda?.assists;
