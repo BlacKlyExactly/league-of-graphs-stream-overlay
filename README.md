@@ -38,7 +38,7 @@ https://leagueofgraphs-stream-overlay.herokuapp.com/champions/overlay/<server>/<
 - OCE
 - JP
 
-<b style="font-size: 18px">Summoner:</b> Your nickname from league of legends
+<b style="font-size: 18px">Summoner:</b> Your nickname from league of legends <br>
 <b style="font-size: 18px">Champion:</b> Champion name you want to show in overlay
 
 ## Example
