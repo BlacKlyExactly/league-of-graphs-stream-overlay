@@ -43,5 +43,5 @@ https://leagueofgraphs-stream-overlay.herokuapp.com/champions/overlay/<server>/<
 
 ## Example
 ```
-https://leagueofgraphs-stream-overlay.herokuapp.com/champions/overlay/eune/Kindred Ðiff/Evelynn
+https://leagueofgraphs-stream-overlay.herokuapp.com/champions/overlay/eune/Gêt Jinxed/Jinx
 ```
