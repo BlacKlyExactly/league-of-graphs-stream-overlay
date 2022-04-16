@@ -6,7 +6,7 @@
 
 ## Description
 
-League of Graphs Stream overlay is api made for streamers to show stats of champion u play/want to show. Data is taken from www.leagueofgraphs.com. I don't recommend using this code by your self because it's aginst leagueofgraphs 
+League of Graphs Stream overlay is api made for streamers to show stats of champion u play/want to show. Data is taken from www.leagueofgraphs.com. I don't recommend using this code by yourself because it's aginst leagueofgraphs 
 <a href="https://www.leagueofgraphs.com/pl/terms-of-use">Terms Of Use</a>
 
 ### Made with:
