@@ -54,7 +54,7 @@ const scrape = async ( params: { server: string, summoner: string, champion: str
             const pentakills = trimContent(champ.children[6].querySelector("a")?.innerHTML);
             const goldPerMinute = trimContent(champ.children[5].querySelector("a")?.innerHTML);
             const minionsPerMinute = trimContent(champ.children[4].querySelector("a")?.innerHTML);
-            const championIcon = `http://ddragon.leagueoflegends.com/cdn/12.16.1/img/champion/${champion}.png`;
+            const championIcon = `http://ddragon.leagueoflegends.com/cdn/13.9.1/img/champion/${champion}.png`;
 
             const kda = {
                 kills: champ.querySelector(".kills")?.innerHTML,
